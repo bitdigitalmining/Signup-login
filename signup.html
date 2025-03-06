@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Bit Digital Mining</title>
+  <link rel="stylesheet" href="css/signup.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Create an Account</h2>
+    <form id="signup-form">
+      <input type="text" id="fullname" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="tel" id="number" placeholder="Phone Number" required>
+      <input type="text" id="country" placeholder="Country" required>
+      <input type="text" id="currency" placeholder="Currency" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <label for="security">Security Question: What is 7+8-6?</label>
+      <input type="text" id="security" placeholder="Answer" required>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p id="error-message" class="error"></p>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script>
+    const signupForm = document.getElementById('signup-form');
+    const errorMessage = document.getElementById('error-message');
+
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get form values
+      const fullName = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const number = document.getElementById('number').value.trim();
+      const country = document.getElementById('country').value.trim();
+      const currency = document.getElementById('currency').value.trim();
+      const password = document.getElementById('password').value;
+      const security = document.getElementById('security').value.trim();
+
+      // Validate that all fields are filled
+      if (!fullName || !email || !number || !country || !currency || !password || !security) {
+        errorMessage.textContent = "All fields are required.";
+        return;
+      }
+
+      // Validate security question (7+8-6 should equal 9)
+      if (security !== "9") {
+        errorMessage.textContent = "Security question answer is incorrect.";
+        return;
+      }
+
+      // Save user info to localStorage for demo purposes
+      const user = { fullName, email, number, country, currency, password };
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Redirect to dashboard (or login page if desired)
+      window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>
